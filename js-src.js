@@ -79,8 +79,19 @@ function cleanData() {
         ? cleanedValueSplitedTwo[nextRecordIDX - 1].trim().split(" ")
         : cleanedValueSplitedTwo[i + 1].trim().split(" ");
 
-      const setClass = cureLine[cureLine.length - 4];
+      const horusClassChar = ["d", "j", "c", "r", "a", "i", "z"];
+      const setClass = horusClassChar.includes(
+        cureLine[cureLine.length - 4].trim().toLowerCase()
+      )
+        ? "H"
+        : "Y";
       const mealType = cureNextLine[1];
+
+      if (walkedThrough.includes(currentRecordNumber)) {
+        continue;
+      } else {
+        walkedThrough.push(currentRecordNumber);
+      }
 
       if (mealType == "MOML") {
         continue;
@@ -97,11 +108,10 @@ function cleanData() {
           count: 1,
         });
       } else {
-        allSPM[isObjectExist]["count"] = allSPM[isObjectExist]["count"] + 1;
+        allSPM[isObjectExist]["count"] += 1;
       }
     }
   }
-
   renderData(allSPM);
 }
 
