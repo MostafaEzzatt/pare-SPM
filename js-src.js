@@ -124,6 +124,7 @@ function cleanData() {
       }
     }
   }
+  renderELem.innerHTML = "";
   renderData(allSPM);
 }
 

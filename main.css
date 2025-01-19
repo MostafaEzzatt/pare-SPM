@@ -36,7 +36,8 @@ button:hover {
   cursor: pointer;
 }
 
-.table {
+.table,
+.table-header {
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -57,7 +58,7 @@ button:hover {
   padding: 4px;
 }
 
-.table-row:first-child {
+.table-header > .table-row {
   font-weight: bold;
   border-bottom: 1px solid #000;
   padding-bottom: 6px;
