@@ -49,20 +49,21 @@ function getRecordMeal(data, recordNumber) {
 }
 
 function cleanData() {
-  const txtValue = txtarea.value;
+  const txtValue = txtarea.value.trim();
   const valueSplited = txtValue.split("\n");
 
-  let cleanedValueSplitedOne = valueSplited.filter(
-    (i) => i !== ")>" && i !== ">" && i !== "m"
+  const splitArgOne = valueSplited.findIndex((el) => el.trim() == ">");
+  const removeHeaderAndFooter = valueSplited.splice(
+    splitArgOne + 5,
+    valueSplited.length - 1
   );
 
-  let cleanedValueSplitedTwo = cleanedValueSplitedOne.splice(
-    5,
-    cleanedValueSplitedOne.length - 7
+  const cleanContent = removeHeaderAndFooter.filter(
+    (i) => i !== ")>" && i !== ">" && i !== "m" && i !== "END OF DISPLAY"
   );
 
-  for (let i = 0; i < cleanedValueSplitedTwo.length; i++) {
-    currentLine = cleanedValueSplitedTwo[i];
+  for (let i = 0; i < cleanContent.length; i++) {
+    currentLine = cleanContent[i];
 
     if (!currentLine.includes("SSR")) {
       // Get Flight Class
@@ -70,14 +71,11 @@ function cleanData() {
       flightClass = cureLine[cureLine.length - 4];
 
       const currentRecordNumber = parseInt(cureLine[0]);
-      const nextRecordIDX = getRecordMeal(
-        cleanedValueSplitedTwo,
-        currentRecordNumber
-      );
+      const nextRecordIDX = getRecordMeal(cleanContent, currentRecordNumber);
 
-      const cureNextLine = cleanedValueSplitedTwo[nextRecordIDX - 1]
-        ? cleanedValueSplitedTwo[nextRecordIDX - 1].trim().split(" ")
-        : cleanedValueSplitedTwo[i + 1].trim().split(" ");
+      const cureNextLine = cleanContent[nextRecordIDX - 1]
+        ? cleanContent[nextRecordIDX - 1].trim().split(" ")
+        : cleanContent[i + 1].trim().split(" ");
 
       const horusClassChar = ["d", "j", "c", "r", "a", "i", "z"];
       const setClass = horusClassChar.includes(
@@ -85,7 +83,21 @@ function cleanData() {
       )
         ? "H"
         : "Y";
-      const mealType = cureNextLine[1];
+
+      let mealType = "";
+
+      switch (cureNextLine[1]) {
+        case "VLML":
+          mealType = "VGML";
+          break;
+        case "AVML":
+          mealType = "VGML";
+          break;
+
+        default:
+          mealType = cureNextLine[1];
+          break;
+      }
 
       if (walkedThrough.includes(currentRecordNumber)) {
         continue;
