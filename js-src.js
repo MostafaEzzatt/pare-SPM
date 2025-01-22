@@ -77,7 +77,7 @@ function cleanData() {
         ? cleanContent[nextRecordIDX - 1].trim().split(" ")
         : cleanContent[i + 1].trim().split(" ");
 
-      const horusClassChar = ["d", "j", "c", "r", "a", "i", "z"];
+      const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p"];
       const setClass = horusClassChar.includes(
         cureLine[cureLine.length - 4].trim().toLowerCase()
       )
