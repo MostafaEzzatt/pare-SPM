@@ -68,7 +68,7 @@ function cleanData() {
     if (!currentLine.includes("SSR")) {
       // Get Flight Class
       cureLine = currentLine.trim().replaceAll(/\s+/gm, " ").split(" ");
-      flightClass = cureLine[cureLine.length - 4];
+      flightClass = currentLine.trim().split("")[42];
 
       const currentRecordNumber = parseInt(cureLine[0]);
       const nextRecordIDX = getRecordMeal(cleanContent, currentRecordNumber);
@@ -77,6 +77,11 @@ function cleanData() {
         ? cleanContent[nextRecordIDX - 1].trim().split(" ")
         : cleanContent[i + 1].trim().split(" ");
 
+      console.log({
+        num: currentLine.trim().split("").splice(0, 3).join(""),
+        flightClass,
+        cureNextLine,
+      });
       const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p"];
       const setClass = horusClassChar.includes(
         cureLine[cureLine.length - 4].trim().toLowerCase()
@@ -91,6 +96,9 @@ function cleanData() {
           mealType = "VGML";
           break;
         case "AVML":
+          mealType = "VGML";
+          break;
+        case "VJML":
           mealType = "VGML";
           break;
 
