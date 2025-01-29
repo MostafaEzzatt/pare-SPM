@@ -14,13 +14,19 @@ function renderData(data) {
   for (let d = 0; d < data.length; d++) {
     const mainElement = createDivWithClass("table-row");
     const mealType = createDivWithClass("");
-    mealType.innerHTML = data[d]["meal-type"];
+    mealType.innerHTML = data[d]["meal-type"].toUpperCase();
 
     const classElem = createDivWithClass("");
     classElem.innerHTML = data[d]["class"];
 
     const count = createDivWithClass("");
     count.innerHTML = data[d]["count"];
+
+    if (data[d]["class"] == "H") {
+      mainElement.classList.add("horus");
+    } else {
+      mainElement.classList.add("economy");
+    }
 
     mainElement.appendChild(mealType);
     mainElement.appendChild(classElem);
@@ -50,7 +56,7 @@ function getRecordMeal(data, recordNumber) {
 
 function cleanData() {
   const txtValue = txtarea.value.trim();
-  const valueSplited = txtValue.split("\n");
+  const valueSplited = txtValue.toLowerCase().split("\n");
 
   const splitArgOne = valueSplited.findIndex((el) => el.trim() == ">");
   const removeHeaderAndFooter = valueSplited.splice(
@@ -59,13 +65,13 @@ function cleanData() {
   );
 
   const cleanContent = removeHeaderAndFooter.filter(
-    (i) => i !== ")>" && i !== ">" && i !== "m" && i !== "END OF DISPLAY"
+    (i) => i !== ")>" && i !== ">" && i !== "m" && i !== "end of display"
   );
 
   for (let i = 0; i < cleanContent.length; i++) {
     currentLine = cleanContent[i];
 
-    if (!currentLine.includes("SSR")) {
+    if (!currentLine.includes("ssr")) {
       // Get Flight Class
       cureLine = currentLine.trim().replaceAll(/\s+/gm, " ").split(" ");
       flightClass = currentLine.trim().split("")[42];
@@ -81,7 +87,11 @@ function cleanData() {
         num: currentLine.trim().split("").splice(0, 3).join(""),
         flightClass,
         cureNextLine,
+        len: cureNextLine.length,
       });
+
+      if (cureNextLine.length > 4) continue;
+
       const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p"];
       const setClass = horusClassChar.includes(
         cureLine[cureLine.length - 4].trim().toLowerCase()
@@ -92,14 +102,14 @@ function cleanData() {
       let mealType = "";
 
       switch (cureNextLine[1]) {
-        case "VLML":
-          mealType = "VGML";
+        case "vlml":
+          mealType = "vgml";
           break;
-        case "AVML":
-          mealType = "VGML";
+        case "avml":
+          mealType = "vgml";
           break;
-        case "VJML":
-          mealType = "VGML";
+        case "vjml":
+          mealType = "vgml";
           break;
 
         default:
@@ -113,7 +123,7 @@ function cleanData() {
         walkedThrough.push(currentRecordNumber);
       }
 
-      if (mealType == "MOML") {
+      if (mealType == "moml") {
         continue;
       }
 

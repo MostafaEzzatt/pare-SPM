@@ -41,9 +41,13 @@ button:hover {
   width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   justify-content: center;
   align-items: center;
+}
+
+.table > div {
+  letter-spacing: 4px;
 }
 
 .table-row {
@@ -60,10 +64,20 @@ button:hover {
 
 .table-header > .table-row {
   font-weight: bold;
-  border-bottom: 1px solid #000;
+  border-bottom: 2px solid white;
+  background-color: black;
+  color: white;
   padding-bottom: 6px;
 }
 
 .table-row:hover {
   background: #eff7ff;
+}
+
+.horus {
+  background-color: #44acb5;
+}
+
+.economy {
+  background-color: #cfb17e;
 }
