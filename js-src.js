@@ -1,8 +1,9 @@
 const txtarea = document.querySelector("textarea");
-const cleanButton = document.querySelector("button");
+const cleanButton = document.querySelector("#clean");
+const resetButton = document.querySelector("#reset");
 const renderELem = document.querySelector(".table");
-const walkedThrough = [];
-const allSPM = [];
+let walkedThrough = [];
+let allSPM = [];
 
 function createDivWithClass(classListtxt) {
   const elem = document.createElement("div");
@@ -92,7 +93,7 @@ function cleanData() {
 
       if (cureNextLine.length > 4) continue;
 
-      const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p"];
+      const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p", "o", "f"];
       const setClass = horusClassChar.includes(
         cureLine[cureLine.length - 4].trim().toLowerCase()
       )
@@ -146,4 +147,12 @@ function cleanData() {
   renderData(allSPM);
 }
 
+function clearData() {
+  txtarea.value = "";
+  renderELem.innerHTML = "";
+  walkedThrough = [];
+  allSPM = [];
+}
+
 cleanButton.addEventListener("click", cleanData);
+resetButton.addEventListener("click", clearData);

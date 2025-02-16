@@ -19,6 +19,16 @@ textarea {
   padding: 2px 5px;
 }
 
+.button_wraper {
+  max-width: 600px;
+  display: flex;
+  gap: 20px;
+}
+
+.button_wraper #reset {
+  background-color: red;
+}
+
 button {
   display: block;
   width: 600px;
