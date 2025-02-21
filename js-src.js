@@ -66,7 +66,12 @@ function cleanData() {
   );
 
   const cleanContent = removeHeaderAndFooter.filter(
-    (i) => i !== ")>" && i !== ">" && i !== "m" && i !== "end of display"
+    (i) =>
+      i !== ")>" &&
+      i !== ">" &&
+      i !== "m" &&
+      i !== "md" &&
+      i !== "end of display"
   );
 
   for (let i = 0; i < cleanContent.length; i++) {
