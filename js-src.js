@@ -23,11 +23,7 @@ function renderData(data) {
     const count = createDivWithClass("");
     count.innerHTML = data[d]["count"];
 
-    if (data[d]["class"] == "H") {
-      mainElement.classList.add("horus");
-    } else {
-      mainElement.classList.add("economy");
-    }
+    mainElement.classList.add(data[d]["class"] === "H" ? "horus" : "economy");
 
     mainElement.appendChild(mealType);
     mainElement.appendChild(classElem);
@@ -38,49 +34,31 @@ function renderData(data) {
 }
 
 function getRecordMeal(data, recordNumber) {
-  let recordIdx = -1;
-
-  for (let i = 0; i < data.length; i++) {
-    const element = data[i];
-
+  return data.findIndex((element) => {
     if (!element.includes("SSR")) {
       const currentRecordNumber = parseInt(element.trim().split(" ")[0]);
-      if (currentRecordNumber == recordNumber + 1) {
-        recordIdx = i;
-        break;
-      }
+      return currentRecordNumber === recordNumber + 1;
     }
-  }
-
-  return recordIdx;
+    return false;
+  });
 }
 
 function cleanData() {
   const txtValue = txtarea.value.trim();
-  const valueSplited = txtValue.toLowerCase().split("\n");
+  const valueSplitted = txtValue.toLowerCase().split("\n");
 
-  const splitArgOne = valueSplited.findIndex((el) => el.trim() == ">");
-  const removeHeaderAndFooter = valueSplited.splice(
-    splitArgOne + 5,
-    valueSplited.length - 1
-  );
-
-  const cleanContent = removeHeaderAndFooter.filter(
-    (i) =>
-      i !== ")>" &&
-      i !== ">" &&
-      i !== "m" &&
-      i !== "md" &&
-      i !== "end of display"
-  );
+  const splitArgOne = valueSplitted.findIndex((el) => el.trim() == ">");
+  const cleanContent = valueSplitted
+    .slice(splitArgOne + 5)
+    .filter((i) => ![")>", ">", "m", "md", "end of display"].includes(i));
 
   for (let i = 0; i < cleanContent.length; i++) {
     currentLine = cleanContent[i];
 
     if (!currentLine.includes("ssr")) {
       // Get Flight Class
-      cureLine = currentLine.trim().replaceAll(/\s+/gm, " ").split(" ");
-      flightClass = currentLine.trim().split("")[42];
+      const cureLine = currentLine.trim().replaceAll(/\s+/gm, " ").split(" ");
+      const flightClass = currentLine.trim().charAt(42);
 
       const currentRecordNumber = parseInt(cureLine[0]);
       const nextRecordIDX = getRecordMeal(cleanContent, currentRecordNumber);
@@ -118,20 +96,23 @@ function cleanData() {
           mealType = "vgml";
           break;
 
+        // case "lcml":
+        //   mealType = "vgml";
+        //   break;
+        // case "lfml":
+        //   mealType = "vgml";
+        //   break;
+
         default:
           mealType = cureNextLine[1];
           break;
       }
 
-      if (walkedThrough.includes(currentRecordNumber)) {
+      if (walkedThrough.includes(currentRecordNumber) || mealType == "moml") {
         continue;
-      } else {
-        walkedThrough.push(currentRecordNumber);
       }
 
-      if (mealType == "moml") {
-        continue;
-      }
+      walkedThrough.push(currentRecordNumber);
 
       const isObjectExist = allSPM.findIndex(
         (elem) => elem["class"] == setClass && elem["meal-type"] == mealType
