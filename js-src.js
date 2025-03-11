@@ -13,17 +13,27 @@ function createDivWithClass(classListtxt) {
 
 function renderData(data) {
   for (let d = 0; d < data.length; d++) {
-    const mainElement = createDivWithClass("table-row");
+    const mainElement = createDivWithClass(
+      "mx-auto flex w-fit border-b border-zinc-700"
+    );
     const mealType = createDivWithClass("");
+    mealType.classList =
+      "w-28 py-1.5 border-r-2 border-zinc-700 text-center last-of-type:border-r-0";
     mealType.innerHTML = data[d]["meal-type"].toUpperCase();
 
     const classElem = createDivWithClass("");
+    classElem.classList =
+      "w-28 py-1.5 border-r-2 border-zinc-700 text-center last-of-type:border-r-0";
     classElem.innerHTML = data[d]["class"];
 
     const count = createDivWithClass("");
+    count.classList =
+      "w-28 py-1.5 border-r-2 border-zinc-700 text-center last-of-type:border-r-0";
     count.innerHTML = data[d]["count"];
 
-    mainElement.classList.add(data[d]["class"] === "H" ? "horus" : "economy");
+    mainElement.classList.add(
+      data[d]["class"] === "H" ? "bg-sky-500" : "bg-teal-500"
+    );
 
     mainElement.appendChild(mealType);
     mainElement.appendChild(classElem);
