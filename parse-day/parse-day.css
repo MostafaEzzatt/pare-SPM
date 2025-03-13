@@ -18,6 +18,7 @@
     --color-zinc-900: oklch(0.21 0.006 285.885);
     --color-zinc-950: oklch(0.141 0.005 285.823);
     --color-white: #fff;
+    --color-black: #000;
     --spacing: 0.25rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
@@ -539,6 +540,17 @@
       justify-content: center;
     }
   }
+  .print\:text-black {
+    @media print {
+      color: var(--color-black);
+    }
+  }
+  .print\:border-0 {
+    @media print {
+      border-style: var(--tw-border-style);
+      border-width: 0px;
+    }
+  }
 }
 @property --tw-space-y-reverse {
   syntax: "*";
@@ -605,4 +617,8 @@
   syntax: "<length-percentage>";
   inherits: false;
   initial-value: 100%;
+}
+
+pre {
+  font-size: 16px;
 }
