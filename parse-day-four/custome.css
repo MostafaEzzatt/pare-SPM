@@ -8,3 +8,14 @@ pre {
   font-weight: 600;
   font-style: normal;
 }
+
+@media print {
+  @page {
+    size: A4 portrait; /* auto is default portrait; */
+    margin: 0;
+  }
+
+  pre {
+    margin-top: -16px;
+  }
+}
