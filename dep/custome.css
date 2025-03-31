@@ -50,6 +50,7 @@ pre {
 
 .registery {
   margin-left: 30px;
+  min-width: 20px;
 }
 .route {
   margin-left: 48px;

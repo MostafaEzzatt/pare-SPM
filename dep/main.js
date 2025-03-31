@@ -21,11 +21,16 @@ clean.addEventListener("click", () => {
       header += removedLines[i + 1] + "\n";
       header += removedLines[i + 2] + "\n";
       header += removedLines[i + 3] + "\n";
-      header += removedLines[i + 4] + "\n";
-      header += removedLines[i + 5] + "\n";
+      header +=
+        "                                كشف الرحلات المغادرة اليومية\n";
+      header += "                            ----------------------------\n";
+      // header += removedLines[i + 4] + "\n";
+      // header += removedLines[i + 5] + "\n";
       header += removedLines[i + 6] + "\n";
       header += removedLines[i + 7] + "\n";
-      header += removedLines[i + 8] + "\n";
+      header +=
+        " ---  -الوقت     ----    ----------------------------   -الحرف--الرقم    SECTOR\n";
+      // header += removedLines[i + 8] + "\n";
       i = i + 8;
       firstHeader = true;
       continue;
@@ -45,6 +50,7 @@ clean.addEventListener("click", () => {
       line.substring(16, 28).trim().includes(" ") ? "2" : "1",
     ];
 
+    console.log(splitLine);
     result.push(splitLine);
   }
 
@@ -110,7 +116,6 @@ function renderLines(linesArr) {
 function findARDIST(code) {
   if (code.includes(" ")) {
     let codeArr = code.replace(/\s+/g, " ").split(" ");
-    console.log(codeArr, code);
     return `${ports.find((p) => p.Code === codeArr[0])["cap-ar"] || ""} ${
       ports.find((p) => p.Code === codeArr[1])["cap-ar"] || ""
     }`;
@@ -159,10 +164,11 @@ function removeEmptyLines(text) {
 }
 
 reset.addEventListener("click", () => {
+  result = [];
   txtarea.value = "";
   pre.innerHTML = "";
-  result = [];
-  first = false;
+  content.innerHTML = "";
+  header = "";
 });
 
 print.addEventListener("click", () => {
