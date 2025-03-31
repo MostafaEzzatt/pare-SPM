@@ -42294,4 +42294,11 @@ const ports = [
     country: "Russia",
     Code: "ZKP",
   },
+  {
+    airport: "Berlin Brandenburg Airport",
+    capital: "Berlin Brandenburg",
+    "cap-ar": "برلين",
+    country: "Berlin",
+    Code: "BER",
+  },
 ];
