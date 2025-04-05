@@ -23,8 +23,8 @@ clean.addEventListener("click", () => {
       header += removedLines[i + 3] + "\n";
       // header += removedLines[i + 3] + "\n";
       header +=
-        "                                كشف الرحلات المغادرة اليومية\n";
-      header += "                            ----------------------------\n";
+        "                            كشف رحلات القيام اليومى بمصر للطيران\n";
+      header += "                        -----------------------------------\n";
       // header += removedLines[i + 4] + "\n";
       // header += removedLines[i + 5] + "\n";
       header += removedLines[i + 6] + "\n";
@@ -32,7 +32,7 @@ clean.addEventListener("click", () => {
         " CUS    FLIGHT NO       R    O    U    T    E       A/C     A.T.D    NO.OF\n";
       // header += removedLines[i + 7] + "\n";
       header +=
-        " ---  -الوقت     ----    ----------------------------   -الحرف--الرقم    SECTOR\n";
+        " ---  -وقت القيام   ----    ----------------------------   -الحرف--الرقم   SECTOR\n";
       // header += removedLines[i + 8] + "\n";
       i = i + 8;
       firstHeader = true;
