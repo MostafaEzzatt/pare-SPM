@@ -32,7 +32,6 @@ clean.addEventListener("click", () => {
     result[i] = pageLines.splice(0, 50).join("\n");
   }
 
-  console.log(result);
   pre.innerHTML = result.join("\n");
 });
 
