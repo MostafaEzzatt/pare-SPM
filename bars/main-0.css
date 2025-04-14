@@ -631,9 +631,3 @@
   inherits: false;
   initial-value: 100%;
 }
-
-.rtl {
-  direction: rtl;
-  unicode-bidi: embed;
-  display: block; /* Make sure it behaves as a block if needed */
-}

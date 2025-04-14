@@ -1,5 +1,5 @@
 pre {
-  font-size: 14.9px;
+  font-size: 18px;
 }
 
 .roboto-mono-mostafa {
@@ -71,4 +71,43 @@ pre {
 /* 32 */
 .sector {
   margin-left: 60px;
+}
+
+.rtl {
+  direction: rtl;
+  unicode-bidi: embed;
+  display: block; /* Make sure it behaves as a block if needed */
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.cur-row {
+  display: flex;
+  align-items: center;
+}
+
+.cur-row span {
+  text-align: right;
+}
+
+.cur-row span:nth-child(1) {
+  width: 64px;
+}
+
+.cur-row span:nth-child(2) {
+  width: 77px;
+}
+
+.cur-row span:nth-child(3) {
+  width: 56px;
+}
+
+.cur-row span:nth-child(4) {
+  width: 220px;
+}
+
+.cur-row span:nth-child(5) {
+  width: 164px;
 }

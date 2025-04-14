@@ -190,6 +190,78 @@ function processText(text, replacementBetween, replacementAfter) {
   return lines.join("\n");
 }
 
+function replaceHeaderTitle(text) {
+  const lines = text.split("\n");
+  if (lines.length <= 0) return "";
+
+  // check which kind of page it is
+  if (lines[0].includes("EGYPTAIR") && lines[0].includes("SER NO.")) {
+    lines[3] = "                                  قسيمة مبيعات";
+    lines[5] = "                         --------------------------------";
+  }
+
+  if (lines[0].includes("EGYPTAIR") && lines[0].includes("TIME")) {
+    lines[3] = "                            طباعة عملات البيع على الطائرات";
+  }
+
+  return lines.join("\n");
+}
+
+function parseCurrancyPage(text) {
+  const lines = text.split("\n");
+
+  if (lines[0].includes("EGYPTAIR") && lines[0].includes("TIME")) {
+    const result = [];
+    for (let i = 0; i < 8; i++) {
+      const line = lines[i];
+
+      result.push(`${line}\n`);
+    }
+
+    for (let i = 8; i < lines.length; i++) {
+      const line = lines[i];
+
+      const currancyCodeList = {
+        AED: "درهم إماراتي",
+        AUD: "دولار أسترالي",
+        BHD: "دينار بحريني",
+        CAD: "دولار كندي",
+        CHF: "فرنك سويسري",
+        DKK: "كرون دنماركية",
+        EGP: "جنيه مصري",
+        EUR: "عملة اوروبية موحدة",
+        GBP: "جنيه إسترليني",
+        JPY: "ين ياباني",
+        KWD: "دينار كويتي",
+        NOK: "كرون نرويجية",
+        OMR: "ريال عماني",
+        QAR: "ريال قطري",
+        SAR: "ريال سعودي",
+        SEK: "كرون سويدية",
+        USD: "دولار أمريكي",
+      };
+
+      // get the sections of the line
+      const serNO = line.substring(0, 8).trim();
+      const curNO = line.substring(8, 17).trim();
+      const curCode = line.substring(17, 24).trim();
+      // const curCodeAR = line.substring(24, 50).trim();
+      const curRate = line.substring(50, 70).trim();
+
+      let fullLine = `<div class="cur-row">
+      <span>${serNO}</span><span>${curNO}</span><span>${curCode}</span><span>${
+        currancyCodeList[curCode.trim()]
+      }</span><span>${curRate}</span></div>`.trim();
+
+      result.push(fullLine);
+    }
+
+    return result.join("");
+  }
+
+  return lines.join("\n");
+}
+
 window.addEventListener("load", function () {
   // Check if the first and second paragraphs exist in local storage
   const firstText = localStorage.getItem("firstText");
@@ -228,8 +300,19 @@ clean.addEventListener("click", () => {
   const removeEmptyLinesValue = removePipedLinesValue.map((page) =>
     removeEmptyLines(page)
   );
+  const replaceHeaderTitleValue = removeEmptyLinesValue.map((page) =>
+    replaceHeaderTitle(page)
+  );
 
-  pre.innerHTML = removeEmptyLinesValue
+  const parseCurrancyPageValue = replaceHeaderTitleValue.map((page) =>
+    parseCurrancyPage(page)
+  );
+
+  // pre.innerHTML = parseCurrancyPage(
+  //   removeEmptyLinesValue[removeEmptyLinesValue.length - 1]
+  // );
+
+  pre.innerHTML = parseCurrancyPageValue
     .map((page) =>
       processText(
         page,
