@@ -93,21 +93,21 @@ pre {
 }
 
 .cur-row span:nth-child(1) {
-  width: 64px;
+  width: 78px;
 }
 
 .cur-row span:nth-child(2) {
-  width: 77px;
+  width: 92px;
 }
 
 .cur-row span:nth-child(3) {
-  width: 56px;
+  width: 66px;
 }
 
 .cur-row span:nth-child(4) {
-  width: 220px;
+  width: 267px;
 }
 
 .cur-row span:nth-child(5) {
-  width: 164px;
+  width: 197px;
 }
