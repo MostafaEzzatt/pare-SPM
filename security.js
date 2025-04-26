@@ -1,6 +1,6 @@
 window.setTimeout(() => {
   if (localStorage.getItem("makesafe") !== "true") {
-    console.log("welcome");
-    window.location.href = "https://www.google.com/";
+    // window.location.href = "https://www.google.com/";
+    console.log("Disable Safe Browsing");
   }
 }, 2000);
