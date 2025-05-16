@@ -1,1 +1,1 @@
-window.localStorage.setItem("makesafe", "true");
+window.localStorage.setItem("makesafe", "trying");
