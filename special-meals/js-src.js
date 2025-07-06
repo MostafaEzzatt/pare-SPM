@@ -62,6 +62,7 @@ function cleanData() {
     .slice(splitArgOne + 5)
     .filter((i) => ![")>", ">", "m", "md", "end of display"].includes(i));
 
+  console.log(cleanContent);
   for (let i = 0; i < cleanContent.length; i++) {
     currentLine = cleanContent[i];
 
@@ -77,16 +78,15 @@ function cleanData() {
         ? cleanContent[nextRecordIDX - 1].trim().split(" ")
         : cleanContent[i + 1].trim().split(" ");
 
-      console.log({
-        num: currentLine.trim().split("").splice(0, 3).join(""),
-        flightClass,
-        cureNextLine,
-        len: cureNextLine.length,
-      });
-
       if (cureNextLine.length > 4) continue;
 
       const horusClassChar = ["d", "j", "c", "r", "a", "i", "z", "p", "o", "f"];
+
+      if (cureLine[cureLine.length - 4] == undefined) {
+        console.log({ cureLine });
+        continue;
+      }
+
       const setClass = horusClassChar.includes(
         cureLine[cureLine.length - 4].trim().toLowerCase()
       )
@@ -140,6 +140,7 @@ function cleanData() {
     }
   }
   renderELem.innerHTML = "";
+  console.log({ allSPM });
   renderData(allSPM);
 }
 
